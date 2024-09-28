@@ -9,5 +9,12 @@ export const resolvers = {
 
             return article;
         },
+        getArticele: async (_, args) => {
+            const article = await articleDtb.findOne({
+                _id: args.id,
+                deleted: false,
+            });
+            return article;
+        },
     },
 };
