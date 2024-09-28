@@ -16,7 +16,12 @@ export const typeDefs = gql`
         avatar: String
     }
 
+    type Message {
+        code: Int
+        message: String
+    }
     type Mutation {
         createArticle(article: articleInput): Article
+        deletedArticle(id: String): Message
     }
 `;

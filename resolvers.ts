@@ -31,5 +31,16 @@ export const resolvers = {
 
             return data;
         },
+        deletedArticle: async (_, args) => {
+            await articleDtb.deleteOne({
+                _id: args.id,
+                deleted: false,
+            });
+            const data = {
+                code: 200,
+                message: "xoa thanh cong",
+            };
+            return data;
+        },
     },
 };
