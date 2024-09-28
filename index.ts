@@ -2,25 +2,36 @@ import express, { Request, Response, Express } from "express";
 
 import dotenv from "dotenv";
 
+import { ApolloServer, gql } from "apollo-server-express";
+import { typeDefs } from "./typeDefs";
+import { resolvers } from "./resolvers";
+
+import { connectDtb } from "./config/database.config";
+import articleDtb from "./models/article.moles";
+
 const app: Express = express();
 const port: number = 3000;
 
 dotenv.config();
 
-import { connectDtb } from "./config/database.config";
-import articleDtb from "./models/article.moles";
-connectDtb();
+const startServer = async () => {
+    connectDtb();
 
-app.get("/article", async (req: Request, res: Response) => {
-    const article = await articleDtb.find({
-        deleted: false,
+    const apolloServer = new ApolloServer({
+        typeDefs,
+        resolvers,
     });
-    res.json({
-        hi: "ok",
-        article: article,
-    });
-});
 
-app.listen(port, () => {
-    console.log(`dang chay cong ${port}`);
-});
+    await apolloServer.start();
+
+    apolloServer.applyMiddleware({
+        app: app,
+        path: "/graphql",
+    });
+
+    app.listen(port, () => {
+        console.log(`dang chay cong ${port}`);
+    });
+};
+
+startServer();
