@@ -17,4 +17,19 @@ export const resolvers = {
             return article;
         },
     },
+    Mutation: {
+        createArticle: async (_, args) => {
+            const { article } = args;
+
+            const newArticle = new articleDtb(article);
+            await newArticle.save();
+
+            const data = await articleDtb.findOne({
+                _id: newArticle.id,
+                deleted: false,
+            });
+
+            return data;
+        },
+    },
 };
