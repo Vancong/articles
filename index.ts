@@ -7,10 +7,17 @@ const port: number = 3000;
 
 dotenv.config();
 
-app.get("/article", (req: Request, res: Response) => {
+import { connectDtb } from "./config/database.config";
+import articleDtb from "./models/article.moles";
+connectDtb();
+
+app.get("/article", async (req: Request, res: Response) => {
+    const article = await articleDtb.find({
+        deleted: false,
+    });
     res.json({
         hi: "ok",
-        article: [],
+        article: article,
     });
 });
 
