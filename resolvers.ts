@@ -1,7 +1,13 @@
+import articleDtb from "./models/article.moles";
+
 export const resolvers = {
     Query: {
-        hello: () => {
-            return "hello word Van Cong 88";
+        getListArticle: async () => {
+            const article = await articleDtb.find({
+                deleted: false,
+            });
+
+            return article;
         },
     },
 };

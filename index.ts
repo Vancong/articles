@@ -1,8 +1,8 @@
-import express, { Request, Response, Express } from "express";
+import express, { Express } from "express";
 
 import dotenv from "dotenv";
 
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
 
