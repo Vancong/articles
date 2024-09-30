@@ -1,4 +1,5 @@
 import articleDtb from "./models/article.moles";
+import categoryDtb from "./models/category.models";
 
 export const resolvers = {
     Query: {
@@ -15,6 +16,22 @@ export const resolvers = {
                 deleted: false,
             });
             return article;
+        },
+
+        getListCategory: async () => {
+            const category = await categoryDtb.find({
+                deleted: false,
+            });
+            console.log(category);
+            return category;
+        },
+
+        getCategory: async (_, args) => {
+            const id = args.id;
+            const category = await categoryDtb.findOne({
+                deleted: false,
+            });
+            return category;
         },
     },
     Mutation: {
