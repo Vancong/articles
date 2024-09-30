@@ -42,5 +42,19 @@ export const resolvers = {
             };
             return data;
         },
+        updateArticle: async (_, args) => {
+            const id = args.id;
+            const data = args.article;
+            await articleDtb.updateOne(
+                {
+                    _id: args.id,
+                },
+                data
+            );
+            const article = await articleDtb.findOne({
+                _id: id,
+            });
+            return article;
+        },
     },
 };
